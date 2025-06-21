@@ -12,8 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
-COPY backend/requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/requirements_railway.txt ./
+
+# Install Python packages with optimizations for smaller image
+RUN pip install --no-cache-dir -r requirements_railway.txt
 
 # Copy application code
 COPY backend/ ./backend/
