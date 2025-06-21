@@ -13,9 +13,15 @@ if ! [[ "$PORT" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 
+# Add the backend directory to Python path for app module resolution
+export PYTHONPATH="/app/backend:$PYTHONPATH"
+
 # Change to backend directory for proper module resolution
-cd /app
+cd /app/backend
+
+echo "Python path: $PYTHONPATH"
+echo "Working directory: $(pwd)"
+echo "Starting uvicorn server..."
 
 # Start the application with proper error handling
-echo "Starting uvicorn server..."
-exec uvicorn backend.main:app --host 0.0.0.0 --port "$PORT" --access-log
+exec uvicorn main:app --host 0.0.0.0 --port "$PORT" --access-log

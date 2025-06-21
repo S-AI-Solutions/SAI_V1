@@ -28,9 +28,9 @@ RUN chmod +x start.sh
 # Create necessary directories
 RUN mkdir -p uploads logs
 
-# Health check - use PORT variable with fallback
+# Health check - Railway sets PORT automatically, fallback to 8000
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-8000}/health || exit 1
+  CMD curl -f http://localhost:8000/health || exit 1
 
 # Use the startup script that properly handles PORT variable
 CMD ["./start.sh"]
