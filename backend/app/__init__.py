@@ -1,0 +1,1 @@
+# FastAPI Document AI Application

@@ -1,0 +1,55 @@
+{
+  "name": "document-ai-mvp",
+  "version": "1.0.0",
+  "description": "Document AI MVP with FastAPI, Celery, and Redis",
+  "scripts": {
+    "build": "docker-compose build",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down"
+  },
+  "secrets": {
+    "GEMINI_API_KEY": {
+      "description": "API Key for Google's Gemini AI",
+      "required": true
+    }
+  },
+  "services": [
+    {
+      "name": "web",
+      "port": 8000,
+      "protocol": "http",
+      "path": "/"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "REDIS_URL": "redis://redis:6379",
+    "DEBUG": "False",
+    "HOST": "0.0.0.0",
+    "PORT": "8000",
+    "CORS_ORIGINS": "[\"*\"]",
+    "MAX_FILE_SIZE": "10485760",
+    "UPLOAD_DIR": "/app/backend/uploads",
+    "CACHE_TTL": "3600",
+    "LOG_LEVEL": "INFO",
+    "ENV": "production"
+  },
+  "volumes": [
+    {
+      "name": "uploads",
+      "path": "/app/backend/uploads"
+    },
+    {
+      "name": "logs",
+      "path": "/app/backend/logs"
+    },
+    {
+      "name": "redis_data",
+      "path": "/data"
+    }
+  ],
+  "dependencies": {
+    "redis": "^6.2.0"
+  },
+  "beta": true
+}

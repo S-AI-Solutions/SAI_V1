@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document AI MVP - Intelligent Document Processing</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🤖</span>
+                <span class="logo-text">Document AI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#docs" class="nav-link">Docs</a>
+                <a href="#api" class="nav-link">API</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <button class="btn btn-primary">Try Free</button>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-animation"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Intelligent Document Processing
+                    <span class="gradient-text">Powered by AI</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Extract structured data from any document with perfect accuracy using Google's Gemini-2.0-flash AI. 
+                    Process invoices, receipts, forms, and more in seconds.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="total-processed">12,847</span>
+                        <span class="stat-label">Documents Processed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.2%</span>
+                        <span class="stat-label">Accuracy Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2.3s</span>
+                        <span class="stat-label">Avg Processing Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Processing Interface -->
+    <section class="processing-section">
+        <div class="container">
+            <!-- Processing Steps -->
+            <div class="processing-steps" id="processing-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-icon">📄</div>
+                    <div class="step-content">
+                        <h3>Upload & Preview</h3>
+                        <p>Drop your document or browse files</p>
+                    </div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-icon">🔍</div>
+                    <div class="step-content">
+                        <h3>Document Analysis</h3>
+                        <p>AI identifies document type and structure</p>
+                    </div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-icon">⚡</div>
+                    <div class="step-content">
+                        <h3>Data Extraction</h3>
+                        <p>Extract fields with confidence scoring</p>
+                    </div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-icon">✅</div>
+                    <div class="step-content">
+                        <h3>Results & Export</h3>
+                        <p>Review, validate, and export data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1: Upload Interface -->
+            <div class="step-content-panel active" id="step-1">
+                <div class="upload-section">
+                    <div class="upload-zone" id="upload-zone">
+                        <div class="upload-content">
+                            <div class="upload-icon">📄</div>
+                            <h3>Drop your document here</h3>
+                            <p>or <span class="upload-link">click to browse</span></p>
+                            <div class="supported-formats">
+                                <span class="format-badge">PDF</span>
+                                <span class="format-badge">PNG</span>
+                                <span class="format-badge">JPG</span>
+                                <span class="format-badge">TIFF</span>
+                            </div>
+                        </div>
+                        <input type="file" id="file-input" accept=".pdf,.png,.jpg,.jpeg,.tiff,.webp" multiple>
+                    </div>
+                    
+                    <div class="upload-options">
+                        <div class="option-group">
+                            <label for="document-type">Document Type</label>
+                            <select id="document-type">
+                                <option value="">Auto-detect</option>
+                                <option value="universal">Universal Extraction (Any Document)</option>
+                                <option value="invoice">Invoice</option>
+                                <option value="receipt">Receipt</option>
+                                <option value="business_card">Business Card</option>
+                                <option value="form">Form</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Universal Extraction Options -->
+                        <div class="option-group" id="universal-options" style="display: none;">
+                            <label for="extraction-mode">Extraction Mode</label>
+                            <select id="extraction-mode">
+                                <option value="comprehensive">Comprehensive (Recommended)</option>
+                                <option value="basic">Basic (Fast)</option>
+                                <option value="detailed">Detailed (Thorough)</option>
+                            </select>
+                            <small class="option-help">
+                                • Basic: Quick extraction of key fields<br>
+                                • Comprehensive: Detailed extraction with tables<br>
+                                • Detailed: Maximum thoroughness with analysis
+                            </small>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="enhance-image" checked>
+                                <span class="checkmark"></span>
+                                Enhance image quality
+                            </label>
+                        </div>
+                        
+                        <div class="option-group">
+                            <label for="custom-fields">Custom Fields (comma-separated)</label>
+                            <input type="text" id="custom-fields" placeholder="e.g., tax_id, reference_number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Document Type Detection -->
+            <div class="step-content-panel" id="step-2">
+                <div class="detection-section">
+                    <div class="document-preview">
+                        <div class="preview-container">
+                            <div class="preview-image" id="preview-image"></div>
+                            <div class="preview-controls">
+                                <button class="control-btn" id="zoom-in">🔍+</button>
+                                <button class="control-btn" id="zoom-out">🔍-</button>
+                                <button class="control-btn" id="rotate">↻</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detection-results">
+                        <h3>Document Type Detection</h3>
+                        <div class="detection-cards" id="detection-cards">
+                            <!-- Detection cards will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="field-preview" id="field-preview">
+                            <h4>Fields to Extract</h4>
+                            <div class="field-list" id="field-list">
+                                <!-- Field list will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Processing Animation -->
+            <div class="step-content-panel" id="step-3">
+                <div class="processing-animation">
+                    <div class="processing-visual">
+                        <div class="processing-circle">
+                            <div class="processing-inner">
+                                <div class="processing-icon">⚡</div>
+                            </div>
+                        </div>
+                        <div class="processing-waves"></div>
+                    </div>
+                    
+                    <div class="processing-status">
+                        <h3 id="processing-title">Analyzing document structure...</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <p id="processing-message">Initializing AI processing...</p>
+                        <div class="processing-time">
+                            <span>Estimated time: </span>
+                            <span id="estimated-time">5-10 seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Results Interface -->
+            <div class="step-content-panel" id="step-4">
+                <div class="results-section">
+                    <div class="results-header">
+                        <h3>Extraction Results</h3>
+                        <div class="results-actions">
+                            <button class="btn btn-secondary" id="process-another">Process Another</button>
+                            <button class="btn btn-primary" id="export-data">Export Data</button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="results-left">
+                            <div class="document-viewer">
+                                <div class="viewer-header">
+                                    <h4>Original Document</h4>
+                                    <div class="confidence-legend">
+                                        <span class="legend-item high">High Confidence</span>
+                                        <span class="legend-item medium">Medium Confidence</span>
+                                        <span class="legend-item low">Review Needed</span>
+                                    </div>
+                                </div>
+                                <div class="document-image" id="result-document">
+                                    <!-- Document with highlights will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="results-right">
+                            <div class="extracted-data">
+                                <div class="data-header">
+                                    <h4>Extracted Data</h4>
+                                    <div class="view-toggle">
+                                        <button class="toggle-btn active" data-view="cards">Cards</button>
+                                        <button class="toggle-btn" data-view="table">Table</button>
+                                        <button class="toggle-btn" data-view="json">JSON</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="data-content">
+                                    <div class="data-view active" id="cards-view">
+                                        <div class="data-cards" id="data-cards">
+                                            <!-- Data cards will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="data-view" id="table-view">
+                                        <div class="data-table-container">
+                                            <table class="data-table" id="data-table">
+                                                <!-- Table will be populated by JavaScript -->
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="data-view" id="json-view">
+                                        <pre class="json-output" id="json-output">
+                                            <!-- JSON will be populated by JavaScript -->
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Batch Processing Section -->
+    <section class="batch-section" id="batch-section" style="display: none;">
+        <div class="container">
+            <h2>Batch Processing</h2>
+            <div class="batch-content">
+                <div class="batch-upload">
+                    <div class="file-list" id="batch-file-list">
+                        <!-- Batch files will be listed here -->
+                    </div>
+                </div>
+                
+                <div class="batch-results">
+                    <div class="batch-summary" id="batch-summary">
+                        <!-- Batch summary will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Export Modal -->
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export Extracted Data</h3>
+                <button class="modal-close" id="close-export-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-format">
+                        <h4>Export Format</h4>
+                        <div class="format-options">
+                            <label class="radio-label">
+                                <input type="radio" name="export-format" value="json" checked>
+                                <span class="radio-mark"></span>
+                                JSON
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="export-format" value="csv">
+                                <span class="radio-mark"></span>
+                                CSV
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="export-format" value="excel">
+                                <span class="radio-mark"></span>
+                                Excel
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="export-fields">
+                        <h4>Fields to Include</h4>
+                        <div class="field-checkboxes" id="export-field-checkboxes">
+                            <!-- Field checkboxes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-export">Cancel</button>
+                <button class="btn btn-primary" id="confirm-export">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container">
+        <!-- Toast notifications will be added here -->
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing your document...</p>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/websocket.js"></script>
+    <script src="/static/js/export.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      - uploads:/app/backend/uploads
+      - logs:/app/backend/logs
+    env_file:
+      - ./backend/.env.production
+    depends_on:
+      - redis
+    command: >
+      sh -c "cd /app && uvicorn backend.main:app --host 0.0.0.0 --port 8000"
+
+  worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./backend:/app/backend
+      - uploads:/app/backend/uploads
+      - logs:/app/backend/logs
+    env_file:
+      - ./backend/.env.production
+    depends_on:
+      - redis
+    command: >
+      sh -c "cd /app && celery -A backend.app.celery_app worker --loglevel=info"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  uploads:
+  logs:
+  redis_data:
